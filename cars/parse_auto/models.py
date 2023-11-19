@@ -12,7 +12,7 @@ class Marks(models.Model):
 
 class Models(models.Model):
     model = models.CharField(max_length=150)
-    fk_model = models.ForeignKey('Marks', on_delete=models.CASCADE, null=True)
+    fk_model = models.ForeignKey(Marks, on_delete=models.CASCADE, null=True)
 
     objects = models.Manager()
 
