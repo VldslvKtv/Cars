@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор марки и модели</title>
+</head>
+<body>
+    <h1>Выберите марку автомобиля:</h1>
+    <form method="post" action="{% url 'get_models' %}">
+        {% csrf_token %}
+        <select name="brand">
+               {% for m in all_marks%}
+                   <option name="mar" value="{{ m.pk }}">{{ m.mark }}</option>
+               {% endfor %}
+            <!-- Добавьте другие марки автомобилей -->
+        </select>
+        <input type="submit" value="Показать модели">
+    </form>
+
+    {% if models %}
+        <h2>Модели выбранной марки:</h2>
+        <ul>
+            {% for model in models %}
+                <li>{{ model }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
