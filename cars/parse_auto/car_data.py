@@ -3,10 +3,10 @@ from parse_auto import models as md
 
 def get_one_elem(element):
     new_el = str(element)
-    n = new_el.find(',')
-    if n == -1:
+    position = new_el.find(',')
+    if position == -1:
         return new_el
-    return new_el[:n]
+    return new_el[:position]
 
 
 def parse_file(tree):

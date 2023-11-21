@@ -10,8 +10,8 @@
 
     <h2>Модели выбранной марки:</h2>
     <ul>
-        {% if all_models %}
-          {% for model in all_models %}
+        {% if fk_models %}
+          {% for model in fk_models %}
                 <li>{{ model.model }}</li>
           {% endfor %}
         {% endif %}

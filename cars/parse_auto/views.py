@@ -28,7 +28,7 @@ def is_empty():
 
 
 def get_marks(request):
-    if is_empty():
+    if not is_empty():
         delete_data()
         tree = Et.parse("parse_auto/static/parse_auto/cars.xml")
         dict_auto = parse_file(tree)
@@ -48,6 +48,6 @@ def get_models(request):
     if request.method == 'POST':
         brand_pk = request.POST['brand']
         all_marks = md.Marks.objects.all()
-        all_models = md.Models.objects.filter(fk_model=brand_pk)
-        return render(request, 'parse_auto/catalog.html', {'all_models': all_models,
+        fk_models = md.Models.objects.filter(fk_model=brand_pk)
+        return render(request, 'parse_auto/catalog.html', {'fk_models': fk_models,
                                                            'all_marks': all_marks})
