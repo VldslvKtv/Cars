@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Marks(models.Model):
-    mark = models.CharField(max_length=150, db_index=True)
+    mark = models.CharField(max_length=150, db_index=True, unique=True)
 
     objects = models.Manager()
 

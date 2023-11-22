@@ -21,6 +21,6 @@ from parse_auto import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('update_autoru_catalog/', views.get_marks, name="update_autoru_catalog"),
+    path('', views.get_marks, name="update_autoru_catalog"),
     path('models/', views.get_models, name="catalog_models"),
 ]

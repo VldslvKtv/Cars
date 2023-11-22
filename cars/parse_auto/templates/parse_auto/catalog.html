@@ -7,10 +7,10 @@
 <body>
 {% extends 'parse_auto/update_autoru_catalog.html' %}
 {% block content %}
-
     <h2>Модели выбранной марки:</h2>
     <ul>
         {% if fk_models %}
+
           {% for model in fk_models %}
                 <li>{{ model.model }}</li>
           {% endfor %}

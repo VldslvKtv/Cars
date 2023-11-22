@@ -16,31 +16,24 @@ def delete_data():
     con.close()
 
 
-def is_empty():
-    con = sl.connect("D:/Projects/cars/cars/db.sqlite3")
-    cursor = con.cursor()
-    db_content = cursor.execute("SELECT COUNT(*) FROM parse_auto_marks")
-    rows = db_content.fetchall()
-    con.close()
-    if rows:
-        return True
-    return False
-
-
-def get_marks(request):
-    if not is_empty():
-        delete_data()
-        tree = Et.parse("parse_auto/static/parse_auto/cars.xml")
-        dict_auto = parse_file(tree)
-        for mrk, mdl in dict_auto.items():
-            new_mark = md.Marks(mark=mrk)
-            new_mark.save()
+def get_data():
+    tree = Et.parse("parse_auto/static/parse_auto/cars.xml")
+    dict_auto = parse_file(tree)
+    for mrk, mdl in dict_auto.items():
+        try:
+            new_mark = md.Marks.objects.get_or_create(mark=mrk)[0]
             mark_identi = new_mark.pk
             mas_models = create_massiv_models(mdl, mark_identi)
             md.Models.objects.bulk_create(mas_models)
-        all_marks = md.Marks.objects.all()
-        return render(request, 'parse_auto/update_autoru_catalog.html', {'all_marks': all_marks})
-    all_marks = md.Marks.objects.all()
+        except:
+            pass
+    marks = md.Marks.objects.all()
+    return marks
+
+
+def get_marks(request):
+    delete_data()
+    all_marks = get_data()
     return render(request, 'parse_auto/update_autoru_catalog.html', {'all_marks': all_marks})
 
 
@@ -49,5 +42,5 @@ def get_models(request):
         brand_pk = request.POST['brand']
         all_marks = md.Marks.objects.all()
         fk_models = md.Models.objects.filter(fk_model=brand_pk)
-        return render(request, 'parse_auto/catalog.html', {'fk_models': fk_models,
-                                                           'all_marks': all_marks})
+        return render(request, 'parse_auto/update_autoru_catalog.html', {'fk_models': fk_models,
+                                                                         'all_marks': all_marks})

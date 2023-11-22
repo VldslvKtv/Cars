@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Marks, Models
+from parse_auto import models as md
 
 
-admin.site.register(Marks)
-admin.site.register(Models)
+admin.site.register(md.Marks)
+admin.site.register(md.Models)
 
